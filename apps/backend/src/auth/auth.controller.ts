@@ -4,6 +4,8 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
+import { GoogleAuthGuard } from './google-auth.guard';
+import { GoogleProfile } from './google.strategy';
 import { IsEmail, IsString, MinLength } from 'class-validator';
 
 class AuthDto {
