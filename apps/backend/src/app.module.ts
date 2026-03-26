@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { StellarModule } from './stellar/stellar.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { LoggerModule } from './common/logger';
+import { HealthModule } from './health/health.module';
 import * as redisStore from 'cache-manager-redis-store';
 
 @Module({
@@ -54,6 +55,7 @@ import * as redisStore from 'cache-manager-redis-store';
     UsersModule,
     StellarModule,
     NotificationsModule,
+    HealthModule,
   ],
   providers: [
     {
