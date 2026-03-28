@@ -51,6 +51,36 @@ jobs:
       - name: Build frontend
         run: npm run build --workspace=apps/frontend
 
+  chromatic-visual-tests:
+    name: Frontend — Visual Regression Tests (Chromatic)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Storybook
+        run: npm run build-storybook --workspace=apps/frontend
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          storybookBuildDir: apps/frontend/storybook-static
+          exitZeroOnChanges: true
+
   contracts-check:
     name: Contracts — Test · Format · Lint
     runs-on: ubuntu-latest
